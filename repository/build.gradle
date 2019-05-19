@@ -1,0 +1,87 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: "kotlin-kapt"
+apply from: '../dependencies.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion compileSdk
+    defaultConfig {
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+flavorDimensions "default"
+
+    productFlavors {
+        stage {
+            dimension "default"
+            buildConfigField "String", "BASE_URL", '"HERE_MUST_BE_YOUR_URL"'
+            buildConfigField "String", "API_KEY", '"HERE_MUST_BE_YOUR_API_KEY"'
+        }
+
+        prod {
+            dimension "default"
+            buildConfigField "String", "BASE_URL", '"HERE_MUST_BE_YOUR_URL"'
+            buildConfigField "String", "API_KEY", '"HERE_MUST_BE_YOUR_API_KEY"'
+        }
+    }}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.appcompat:appcompat:${androidXV}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinV}"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycleV}"
+
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaV}"
+    implementation "com.jakewharton.rxrelay2:rxrelay:${rxRelayV}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidV}"
+
+    implementation "com.squareup.okhttp3:okhttp:${okHttpV}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpV}"
+
+    implementation "com.squareup.retrofit2:retrofit:${retrofitV}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitV}"
+    implementation  "com.github.aurae.retrofit2:converter-logansquare:${retrofitConverterLoganSquareV}"
+
+    implementation "com.bluelinelabs:logansquare:${loganSquareV}"
+    kapt "com.bluelinelabs:logansquare-compiler:${loganSquareV}"
+    implementation "com.fasterxml.jackson.core:jackson-core:${loganSquareV}"
+
+    implementation "androidx.room:room-runtime:${roomV}"
+    implementation "androidx.room:room-rxjava2:${roomV}"
+    kapt "androidx.room:room-compiler:${roomV}"
+
+    debugImplementation "com.amitshekhar.android:debug-db:${debugDbV}"
+
+    implementation "org.koin:koin-core:${koinV}"
+    implementation "org.koin:koin-android:${koinV}"
+    implementation "org.koin:koin-androidx-scope:${koinV}"
+    implementation "org.koin:koin-androidx-viewmodel:${koinV}"
+
+    testImplementation "junit:junit:${jUnitV}"
+    androidTestImplementation "androidx.test:runner:${androidTestRunnerV}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${espressoV}"
+}

@@ -1,0 +1,304 @@
+ext {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+   versionMajor = 0
+   versionMinor = 0
+   versionPatch = 1
+   versionClassifier = ""
+    // project
+    minSdk = 22
+    targetSdk = 28
+    buildToolsVersion = "28.0.2"
+    compileSdk = 28
+    androidGradle = "3.4.0-beta03"
+
+    // android
+    androidXV = "1.0.0"
+    androidKtxV = "1.0.0-rc02"   //https://github.com/android/android-ktx
+    androidLifecycleV = "2.0.0-alpha1"
+    multidexV = "2.0.0"
+    constraintLayoutV = "2.0.0-alpha2"
+    workersV = "2.0.1"
+
+    // kotlin
+    kotlinV = "1.3.10" // https://kotlinlang.org/
+    coroutinesAndroidV = "1.2.0-alpha-2" // https://kotlinlang.org/
+    coroutinesCoreV = "1.2.0-alpha-2" // https://kotlinlang.org/
+
+    //rxExtensions
+    rxJavaV = "2.2.0"            //https://github.com/ReactiveX/RxJava
+    rxRelayV = "2.0.0"           //https://github.com/JakeWharton/RxRelay
+    rxKotlinV = "2.2.0"          //https://github.com/ReactiveX/RxKotlin
+    rxAndroidV = "2.1.0"         //https://github.com/ReactiveX/RxAndroid
+    rxBindingV = "2.1.1"         //https://github.com/JakeWharton/RxBinding
+    rxBinding3V = "3.0.0-alpha1"         //https://github.com/JakeWharton/RxBinding
+    rxNetworkV = "2.1.0"         //https://github.com/pwittchen/ReactiveNetwork
+    rxPermissionsV = "0.10.2"    //https://github.com/tbruyelle/RxPermissions
+
+    // dependency injection
+    daggerV = "2.17" //https://github.com/google/dagger
+    koinV = "1.0.1"  //https://github.com/InsertKoinIO/koin
+
+    // general
+    mosbyV = "3.1.0" //https://github.com/sockeqwe/mosby
+
+    //pdf
+    pdfViewV = "3.1.0-beta.1"
+
+    // network
+    okHttpV = "3.11.0" //https://github.com/square/okhttp
+
+    // serialization
+    gsonV = "2.8.5"        //https://github.com/google/gson
+    loganSquareV = "1.3.7" //https://github.com/bluelinelabs/LoganSquare
+    jacksonCoreV = "2.9.7" //https://github.com/bluelinelabs/LoganSquare
+
+    // retrofit
+    retrofitV = "2.4.0"                     //https://github.com/square/retrofit
+    retrofitConverterGsonV =
+            "2.4.0"        //https://github.com/square/retrofit/tree/master/retrofit-converters/gson
+    retrofitConverterLoganSquareV = "1.4.1" //https://github.com/mannodermaus/retrofit-logansquare
+
+    // apollo
+    apolloV = "1.0.0-alpha"      // https://github.com/apollographql/apollo-android
+
+    //persistence
+    roomV = "2.1.0-alpha06" //https://developer.android.com/topic/libraries/architecture/room
+
+    //lifecycle
+    lifecycleV = "2.0.0-rc01" //https://developer.android.com/topic/libraries/architecture/lifecycle
+    viewmodelKTXV = "2.1.0-alpha04" //https://developer.android.com/topic/libraries/architecture/lifecycle
+    lifecycleReactiveStreamsV = "2.0.0" //https://developer.android.com/topic/libraries/architecture/lifecycle
+
+    //navigation
+    navigationV = "2.1.0-alpha01" //https://developer.android.com/topic/libraries/architecture/navigation
+
+    //imageLoading
+    glideV = "4.8.0"  //https://github.comalpha07/bumptech/glide
+    picassoV = "2.71828"       //https://github.com/square/picasso
+
+    //profiling
+    debugDbV = "1.0.4"    //https://github.com/amitshekhariitbhu/Android-Debug-Database
+    leakCanaryV = "1.6.2" //https://github.com/square/leakcanary
+
+    //social auth
+    facebookAnalyticsV = "[4,5)"
+    crashlyticsV = "2.9.4@aar"
+    fabricPluginV = "1.+"
+    simpleAuthV = "2.1.3"  //https://github.com/jaychang0917/SimpleAuth
+
+    // firebase
+    firebaseCoreV = "16.0.1"
+    firebaseMessagingV = "17.1.0"
+
+    //Google
+    googleServicesV = "4.0.1"
+    googleAuthV = "16.0.0"
+    googleMapsV = "16.0.0"
+    googleLocationV = "16.0.0"
+
+    // tests
+    jUnitV = "4.12"
+    androidTestRunnerV = "1.0.0-rc01"
+    espressoV = "3.1.0-alpha4"
+    mockitoV = "2.22.0"
+    mockitoAndroidV = "2.22.0"
+    mockitoKotlinV = "2.0.0-RC1"
+
+    //ImageProcessing
+    gpuImageV = "2.0.3"
+    exifinterfaceV = "1.0.0"
+    compressorV = "2.1.0"
+
+    //Camera
+    cameraViewV = "2.0.0-beta03"
+    //Billing
+    billingV = "1.2.1"
+    skeletonV = "1.1.2"
+    shimmerlayoutV = "2.1.0"
+
+    exoplayerCoreV = "2.9.6"
+    exoplayerDashV = "2.9.6"
+    exoplayerUiV = "2.9.6"
+
+    dashedCircularProgressV = "1.4"
+
+    customTabsV = "23.3.0"
+
+    // Android
+    androidCore = "androidx.core:core:${androidXV}"
+    androidAnnotation = "androidx.annotation:annotation:${androidXV}"
+    androidLifecycle = "androidx.lifecycle:lifecycle-runtime:${androidLifecycleV}"
+    appCompat = "androidx.appcompat:appcompat:${androidXV}"
+    material = "com.google.android.material:material:${androidXV}"
+    palette = "androidx.palette:palette:${androidXV}"
+    constraintLayout = "androidx.constraintlayout:constraintlayout:${constraintLayoutV}"
+    cardview = "androidx.cardview:cardview:${androidXV}"
+    multidex = "androidx.multidex:multidex:${multidexV}"
+    animatedVector = "androidx.vectordrawable:vectordrawable-animated:${androidXV}"
+    workersKtx = "androidx.work:work-runtime-ktx:${workersV}"
+
+    androidKtx = "androidx.core:core-ktx:${androidKtxV}"
+    paletteKtx = "androidx.palette:palette-ktx:${androidKtxV}"
+    fragmentKtx = "androidx.fragment:fragment-ktx:${androidKtxV}"
+    collectionKtx = "androidx.collection:collection-ktx:${androidKtxV}"
+
+    // Kotlin
+    kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinV}"
+
+    // Coroutines
+    coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesCoreV}"
+    coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesAndroidV}"
+
+    // RxExtension
+    rxJava = "io.reactivex.rxjava2:rxjava:${rxJavaV}"
+    rxRelay = "com.jakewharton.rxrelay2:rxrelay:${rxRelayV}"
+    rxKotlin = "io.reactivex.rxjava2:rxkotlin:${rxKotlinV}"
+    rxAndroid = "io.reactivex.rxjava2:rxandroid:${rxAndroidV}"
+
+    rxBinding = "com.jakewharton.rxbinding3:rxbinding:${rxBinding3V}"
+    rxBindingCore = "com.jakewharton.rxbinding3:rxbinding-core:${rxBinding3V}"
+    rxBindingAppCompat = "com.jakewharton.rxbinding3:rxbinding-appcompat:${rxBinding3V}"
+    rxBindingDrawer = "com.jakewharton.rxbinding3:rxbinding-drawerlayout:${rxBinding3V}"
+    rxBindingLeanBack = "com.jakewharton.rxbinding3:rxbinding-leanback:${rxBinding3V}"
+    rxBindingRecyclerView = "com.jakewharton.rxbinding3:rxbinding-recyclerview:${rxBinding3V}"
+    rxBindingSlidingPanel = "com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:${rxBinding3V}"
+    rxBindingSwipeRefresh = "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:${rxBinding3V}"
+    rxBindingViewPager = "com.jakewharton.rxbinding3:rxbinding-viewpager:${rxBinding3V}"
+    rxBindingDesign = "com.jakewharton.rxbinding3:rxbinding-material:${rxBinding3V}"
+
+    rxNetwork = "com.github.pwittchen:reactivenetwork-rx2:${rxNetworkV}"
+    rxPermissions = "com.github.tbruyelle:rxpermissions:${rxPermissionsV}"
+    rxBindingKotlin = "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingV}"
+    rxBindingDesignKotlin = "com.jakewharton.rxbinding2:rxbinding-design-kotlin:${rxBindingV}"
+    rxBindingAppCompatV4Kotlin = "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:${rxBindingV}"
+    rxBindingAppCompatV7Kotlin = "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindingV}"
+    rxBindingRecyclerViewV7Kotlin =
+            "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:${rxBindingV}"
+
+    // Dependency Injection
+    inject = "javax.inject:javax.inject:1"
+    dagger = "com.google.dagger:dagger:${daggerV}"
+    daggerCompiler = "com.google.dagger:dagger-compiler:${daggerV}"
+    koinCore = "org.koin:koin-core:${koinV}"
+    koinAndroid = "org.koin:koin-android:${koinV}"
+    koinCoreScope = "org.koin:koin-androidx-scope:${koinV}"
+    koinAndroidViewModel = "org.koin:koin-androidx-viewmodel:${koinV}"
+    koinTests = "org.koin:koin-test:${koinV}"
+
+    // General
+    mosby = "com.hannesdorfmann.mosby3:mvi:${mosbyV}"
+
+    //PDF
+    pdfView = "com.github.barteksc:android-pdf-viewer:${pdfViewV}"
+
+    // Network
+    okHttp = "com.squareup.okhttp3:okhttp:${okHttpV}"
+    okHttpInteceptor = "com.squareup.okhttp3:logging-interceptor:${okHttpV}"
+
+    // Retrofit
+    retrofit = "com.squareup.retrofit2:retrofit:${retrofitV}"
+    retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${retrofitV}"
+    retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${retrofitConverterGsonV}"
+    retrofitConverterLoganSquare =
+            "com.github.aurae.retrofit2:converter-logansquare:${retrofitConverterLoganSquareV}"
+
+    // Apollo
+    apollo = "com.apollographql.apollo:apollo-runtime:${apolloV}"
+    apolloAndroidSupport = "com.apollographql.apollo:apollo-android-support:${apolloV}"
+    apolloRxJavaSupport = "com.apollographql.apollo:apollo-rx2-support:${apolloV}"
+
+    // Serialization
+    gson = "com.google.code.gson:gson:${gsonV}"
+    loganSquare = "com.bluelinelabs:logansquare:${loganSquareV}"
+    loganSquareCompiler = "com.bluelinelabs:logansquare-compiler:${loganSquareV}"
+    jacksonCore = "com.fasterxml.jackson.core:jackson-core:${loganSquareV}"
+
+    // Persistence
+    room = "androidx.room:room-runtime:${roomV}"
+    roomCompiler = "androidx.room:room-compiler:${roomV}"
+    rxRoom = "androidx.room:room-rxjava2:${roomV}"
+
+    // Lifecycle
+    lifecycle = "androidx.lifecycle:lifecycle-extensions:${lifecycleV}"
+    viewmodelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${viewmodelKTXV}"
+    lifecycleReactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:${lifecycleReactiveStreamsV}"
+
+    // Navigation
+
+    navigationRuntime = "androidx.navigation:navigation-runtime:${navigationV}"
+    navigationRuntime_KTX = "androidx.navigation:navigation-runtime-ktx:${navigationV}"
+    navigationFragment = "androidx.navigation:navigation-fragment:${navigationV}"
+    navigationFragment_KTX = "androidx.navigation:navigation-fragment-ktx:${navigationV}"
+    navigationUI = "androidx.navigation:navigation-ui:${navigationV}"
+    navigationUI_KTX = "androidx.navigation:navigation-ui-ktx:${navigationV}"
+    navigationSafeArgsPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${navigationV}"
+
+    // ImageLoading
+    glide = "com.github.bumptech.glide:glide:${glideV}"
+    glideCompiler = "com.github.bumptech.glide:compiler:${glideV}"
+    glideOkHttp3 = "com.github.bumptech.glide:okhttp3-integration:${glideV}"
+    picasso = "com.squareup.picasso:picasso:${picassoV}"
+
+    // Profiling
+    debugDb = "com.amitshekhar.android:debug-db:${debugDbV}"
+    leakCanaryDebug = "com.squareup.leakcanary:leakcanary-android:${leakCanaryV}"
+    leakCanaryRelease = "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryV}"
+    leakCanaryFragment = "com.squareup.leakcanary:leakcanary-support-fragment:${leakCanaryV}"
+
+    // Social auth
+    googleAuth = "com.google.android.gms:play-services-auth:${googleAuthV}"
+    socialAuth = "com.jaychang:simpleauth:${simpleAuthV}"
+    socialAuthFacebook = "com.jaychang:simpleauth-facebook:${simpleAuthV}"
+    socialAuthGoogle = "com.jaychang:simpleauth-google:${simpleAuthV}"
+    socialAuthInstagram = "com.jaychang:simpleauth-instagram:${simpleAuthV}"
+    socialAuthTwitter = "com.jaychang:simpleauth-twitter:${simpleAuthV}"
+
+    // Facebook
+    facebookAnalytics = "com.facebook.android:facebook-android-sdk:${facebookAnalyticsV}"
+
+    // Fabric
+    fabricPlugin = "io.fabric.tools:gradle:${fabricPluginV}"
+    crashlytics = "com.crashlytics.sdk.android:crashlytics:${crashlyticsV}"
+
+    // Firebase
+    firebaseCore = "com.google.firebase:firebase-core:${firebaseCoreV}"
+    firebaseMessaging = "com.google.firebase:firebase-messaging:${firebaseMessagingV}"
+
+    //Maps
+    googleMaps = "com.google.android.gms:play-services-maps:${googleMapsV}"
+    googleLocation = "com.google.android.gms:play-services-location:${googleLocationV}"
+
+    // Tests
+    jUnit = "junit:junit:${jUnitV}"
+    mockito = "org.mockito:mockito-core:${mockitoV}"
+    mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinV}"
+    mockitoAndroid = "org.mockito:mockito-android:${mockitoAndroidV}"
+    mockitoInline = "org.mockito:mockito-inline:+"
+    androidTestRunner = "androidx.test:runner:${androidTestRunnerV}"
+    espresso = "androidx.test.espresso:espresso-core:${espressoV}"
+
+    //ImageProcessing
+    gpuImage = "jp.co.cyberagent.android:gpuimage:${gpuImageV}"
+    exifinterface = "androidx.exifinterface:exifinterface:${exifinterfaceV}"
+    compressor = "id.zelory:compressor:${compressorV}"
+
+    //Camera
+    cameraView = "com.otaliastudios:cameraview:${cameraViewV}"
+
+    //Billings
+    billing = "com.android.billingclient:billing:${billingV}"
+
+    skeleton = "com.ethanhua:skeleton:${skeletonV}"
+    shimmerlayout = "io.supercharge:shimmerlayout:${shimmerlayoutV}"
+
+    exoplayerCore = "com.google.android.exoplayer:exoplayer-core:${exoplayerCoreV}"
+    exoplayerDash = "com.google.android.exoplayer:exoplayer-dash:${exoplayerDashV}"
+    exoplayerUi = "com.google.android.exoplayer:exoplayer-ui:${exoplayerUiV}"
+
+    dashedCircularProgress = "com.github.jakob-grabner:Circle-Progress-View:${dashedCircularProgressV}"
+
+    customTabs = "com.android.support:customtabs:${customTabsV}"
+
+}

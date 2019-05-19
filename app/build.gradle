@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion compileSdk
+    defaultConfig {
+        applicationId "com.tinkoff.task"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+  flavorDimensions "default"
+
+    productFlavors {
+        stage {
+            dimension "default"
+            buildConfigField "String", "BASE_URL", '"url"'
+        }
+
+        prod {
+            dimension "default"
+            buildConfigField "String", "BASE_URL", '"url"'
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':repository')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinV}"
+    implementation "androidx.core:core-ktx:${androidKtxV}"
+
+    implementation "androidx.constraintlayout:constraintlayout:${constraintLayoutV}"
+    implementation "androidx.appcompat:appcompat:${androidXV}"
+    implementation "com.google.android.material:material:${androidXV}"
+
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaV}"
+    implementation "io.reactivex.rxjava2:rxkotlin:${rxKotlinV}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidV}"
+    implementation "com.jakewharton.rxrelay2:rxrelay:${rxRelayV}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingV}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-design-kotlin:${rxBindingV}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindingV}"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:${navigationV}"
+    implementation "androidx.navigation:navigation-ui-ktx:${navigationV}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${viewmodelKTXV}"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:${lifecycleReactiveStreamsV}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycleV}"
+
+    implementation "org.koin:koin-core:${koinV}"
+    implementation "org.koin:koin-android:${koinV}"
+    implementation "org.koin:koin-androidx-scope:${koinV}"
+    implementation "org.koin:koin-androidx-viewmodel:${koinV}"
+
+    implementation "com.github.bumptech.glide:glide:${glideV}"
+    kapt "com.github.bumptech.glide:compiler:${glideV}"
+
+    testImplementation "junit:junit:${jUnitV}"
+    androidTestImplementation "androidx.test:runner:${androidTestRunnerV}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${espressoV}"
+}

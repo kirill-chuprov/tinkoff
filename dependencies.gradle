@@ -95,7 +95,7 @@ ext {
     //Google
     googleServicesV = "4.0.1"
     googleAuthV = "16.0.0"
-    googleMapsV = "16.0.0"
+    googleMapsV = "16.1.0"
     googleLocationV = "16.0.0"
 
     // tests

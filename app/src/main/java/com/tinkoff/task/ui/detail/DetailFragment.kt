@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
+import com.tinkoff.task.databinding.FragmentDetailBinding
 import com.tinkoff.task.ui.detail.DetailStateIntent.GetSampleData
 import io.reactivex.Observable
 import org.koin.androidx.viewmodel.ext.android.viewModel

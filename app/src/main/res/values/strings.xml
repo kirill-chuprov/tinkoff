@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Tinkoff</string>
-    <string name="map">Карта</string>
-    <string name="list">Список</string>
-    <string name="point">Точка пополнения</string>
+  <string name="app_name">Tinkoff</string>
+  <string name="map">Карта</string>
+  <string name="list">Список</string>
+  <string name="point">Точка пополнения</string>
+  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCYSXAljAma0jsnaMKH52EC-3elpxYdEVo</string>
 </resources>

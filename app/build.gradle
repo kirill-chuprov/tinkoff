@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 apply from: '../dependencies.gradle'
 
 android {
@@ -15,16 +15,39 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        def keystorePropertiesFile = rootProject.file("keystore.properties")
+        def keystoreProperties = new Properties()
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-  flavorDimensions "default"
+        signDebug {
+            storeFile file(keystoreProperties['KEYSTORE_FILE_PATH'])
+            storePassword keystoreProperties['KEYSTORE_PASSWORD']
+            keyAlias keystoreProperties['DEBUG_KEY_ALIAS']
+            keyPassword keystoreProperties['DEBUG_KEY_ALIAS_PASSWORD']
+        }
+
+        signRelease {
+            storeFile file(keystoreProperties['KEYSTORE_FILE_PATH'])
+            storePassword keystoreProperties['KEYSTORE_PASSWORD']
+            keyAlias keystoreProperties['DEBUG_KEY_ALIAS']
+            keyPassword keystoreProperties['DEBUG_KEY_ALIAS_PASSWORD']
+        }
+    }
+
+
+
+    flavorDimensions "default"
 
     productFlavors {
         stage {
+            signingConfig signingConfigs.signDebug
             dimension "default"
             buildConfigField "String", "BASE_URL", '"url"'
         }
 
         prod {
+            signingConfig signingConfigs.signRelease
             dimension "default"
             buildConfigField "String", "BASE_URL", '"url"'
         }
@@ -78,6 +101,7 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:${koinV}"
     implementation "org.koin:koin-androidx-viewmodel:${koinV}"
 
+    implementation "com.github.tbruyelle:rxpermissions:${rxPermissionsV}"
 
     implementation "com.google.android.gms:play-services-maps:${googleMapsV}"
     implementation "com.google.android.gms:play-services-location:${googleLocationV}"

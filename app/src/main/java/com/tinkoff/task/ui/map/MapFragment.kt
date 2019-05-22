@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
@@ -18,24 +19,26 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.GoogleMap
 import com.jakewharton.rxbinding2.view.clicks
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentMapBinding
+import com.tinkoff.task.ui.map.MapStateIntent.GetObjectsInBoundaries
 import com.tinkoff.task.ui.map.MapStateIntent.GetSampleData
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import io.reactivex.subjects.PublishSubject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
 
   private val vmMapScreen: MapViewModel by viewModel()
+  private val eventPublisher: PublishSubject<MapStateIntent> by lazy { vmMapScreen.eventPublisher }
   private var dialog: AlertDialog? = null
   private val locationManager by lazy { context!!.getSystemService(LOCATION_SERVICE) as LocationManager }
   private val rxPermissions by lazy { RxPermissions(this) }
   private lateinit var googleMap: GoogleMap
   private lateinit var rxPermissionDisposable: Disposable
-  override fun resLayoutId(): Int = R.layout.fragment_map
+  override fun resLayoutId(): Int = com.tinkoff.task.R.layout.fragment_map
 
   override fun onCreate(savedInstanceState: Bundle?) =
     super.onCreate(savedInstanceState).also { handleStates() }
@@ -72,7 +75,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
       initMap(savedInstanceState)
 
       viewBinding!!.root.clicks()
-        .subscribe { findNavController().navigate(R.id.action_rootFragment_to_detailFragment) }
+        .subscribe { findNavController().navigate(com.tinkoff.task.R.id.action_rootFragment_to_detailFragment) }
     }
 
   @SuppressLint("MissingPermission")
@@ -83,13 +86,16 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
         googleMap = it
         googleMap.uiSettings.isZoomControlsEnabled = true
 
-        rxPermissionDisposable = rxPermissions.requestEachCombined(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-          .subscribe { permission ->
+        rxPermissionDisposable = rxPermissions.requestEachCombined(
+          Manifest.permission.ACCESS_FINE_LOCATION,
+          Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+          .subscribe {
             val isGPSEnabled =
               locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
               )
-            if (isGPSEnabled && permission.granted) {
+            if (isGPSEnabled && it.granted) {
               googleMap.isMyLocationEnabled = true
             } else {
 
@@ -98,18 +104,26 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
 
 
         googleMap.setOnCameraIdleListener {
-          val curScreen = googleMap.projection.visibleRegion.latLngBounds
-          // First two parameters describe top left point on the map. Last two - bottom right.
-//          eventPublisher.onNext(
-//            GetObjectsInBoundaries(
-//              curScreen.southwest.longitude,
-//              curScreen.northeast.latitude,
-//              curScreen.northeast.longitude,
-//              curScreen.southwest.latitude
-//            )
-//          )
+          with(googleMap.projection.visibleRegion.latLngBounds) {
+            val results = FloatArray(5)
+            Location.distanceBetween(
+              northeast.latitude,
+              northeast.longitude,
+              southwest.latitude,
+              southwest.longitude,
+              results
+            )
+            eventPublisher.onNext(
+              GetObjectsInBoundaries(
+                southwest.longitude,
+                northeast.latitude,
+                northeast.longitude,
+                southwest.latitude,
+                results[0]
+              )
+            )
+          }
         }
-
 
       }
     }
@@ -134,9 +148,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
   private fun createLocationSettingsDialog(context: Context, message: String): AlertDialog.Builder =
     with(AlertDialog.Builder(getContext())) {
       setMessage(message)
-      setPositiveButton(R.string.go_to_location_settings) { _, _ ->
+      setPositiveButton(com.tinkoff.task.R.string.go_to_location_settings) { _, _ ->
         dialog?.dismiss()
-        val msg = getString(R.string.location_service_disabled)
+        val msg = getString(com.tinkoff.task.R.string.location_service_disabled)
         val intent = if (message == msg) Intent(
           Settings.ACTION_LOCATION_SOURCE_SETTINGS
         ) else Intent(Settings.ACTION_SETTINGS)

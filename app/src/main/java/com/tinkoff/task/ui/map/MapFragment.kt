@@ -17,13 +17,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.clicks
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentMapBinding
-import com.tinkoff.task.ui.map.MapStateIntent.GetObjectsInBoundaries
-import com.tinkoff.task.ui.map.MapStateIntent.GetSampleData
+import com.tinkoff.task.ui.map.MapStateIntent.GetDepositePointAround
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
@@ -102,7 +103,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
             }
           }
 
-
         googleMap.setOnCameraIdleListener {
           with(googleMap.projection.visibleRegion.latLngBounds) {
             val results = FloatArray(5)
@@ -113,18 +113,19 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
               southwest.longitude,
               results
             )
+
+            val currentCenterLongitude = googleMap.cameraPosition.target.longitude
+            val currentCenterLatitude = googleMap.cameraPosition.target.latitude
+
             eventPublisher.onNext(
-              GetObjectsInBoundaries(
-                southwest.longitude,
-                northeast.latitude,
-                northeast.longitude,
-                southwest.latitude,
-                results[0]
+              GetDepositePointAround(
+                currentCenterLongitude,
+                currentCenterLatitude,
+                results[0].toInt()
               )
             )
           }
         }
-
       }
     }
   }
@@ -132,7 +133,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
   override fun initIntents() {
     viewSubscriptions = Observable.merge(
       listOf(
-        Observable.just(GetSampleData)
+        Observable.just(true),
+        eventPublisher
       )
     ).subscribe(vmMapScreen.viewIntentsConsumer())
   }
@@ -143,6 +145,16 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
 
   override fun render(state: MapState) {
     viewBinding!!.viewState = state
+    if (state.success) {
+      with(state.depositePoints) {
+        googleMap.clear()
+        forEach {
+          googleMap.addMarker(
+            MarkerOptions().position(LatLng(it.lat, it.lon)).title(it.partnerName)
+          )
+        }
+      }
+    }
   }
 
   private fun createLocationSettingsDialog(context: Context, message: String): AlertDialog.Builder =

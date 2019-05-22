@@ -11,6 +11,6 @@ import com.tinkoff.task.repository.data.remote.entity.DepositePointR
 @JsonObject
 class DepositePointsResponse(
   @JsonField(name = ["resultCode"]) var resultCode: String? = null,
-  @JsonField(name = ["payload"]) var cities: List<DepositePointR>? = null,
+  @JsonField(name = ["payload"]) var payload: List<DepositePointR>? = null,
   @JsonField(name = ["trackingId"]) var trackingId: String? = null
 )

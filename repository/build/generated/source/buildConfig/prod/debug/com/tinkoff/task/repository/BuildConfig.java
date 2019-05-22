@@ -12,5 +12,5 @@ public final class BuildConfig {
   public static final String VERSION_NAME = "1.0";
   // Fields from product flavor: prod
   public static final String API_KEY = "HERE_MUST_BE_YOUR_API_KEY";
-  public static final String BASE_URL = "HERE_MUST_BE_YOUR_URL";
+  public static final String BASE_URL = "https://api.tinkoff.ru/";
 }

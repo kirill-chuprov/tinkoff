@@ -16,5 +16,5 @@ data class LocationR(
 
 fun LocationR.toDomain() = Location(
   latitude = latitude ?: Double.MIN_VALUE,
-  longitude = latitude ?: Double.MIN_VALUE
+  longitude = longitude ?: Double.MIN_VALUE
 )

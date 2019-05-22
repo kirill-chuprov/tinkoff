@@ -5,5 +5,5 @@
   <string name="point">Точка пополнения</string>
   <string name="location_service_disabled">Геолокация отключена </string>
   <string name="go_to_location_settings"> В настройки  </string>
-  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyADOsqVBBLwU6b1gAZfHn72pw0iC_rWj3A</string>
+  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDCt1ul5p8VvxCOAFk1MxNg-OBuvncyAFg</string>
 </resources>

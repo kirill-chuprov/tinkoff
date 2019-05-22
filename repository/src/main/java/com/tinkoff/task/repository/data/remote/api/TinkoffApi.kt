@@ -5,12 +5,14 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+const val V1 = "v1"
+
 interface TinkoffApi {
 
-  @GET("api/v2/deposition_points")
+  @GET("$V1/deposition_points")
   fun getDepositionPoints(
-    @Query("latitude") latitude: String,
-    @Query("longitude") language: String,
-    @Query("radius") radius: String
-  ): Observable<List<DepositePointsResponse>>
+    @Query("longitude") longitude: Double,
+    @Query("latitude") latitude: Double,
+    @Query("radius") radius: Int
+  ): Observable<DepositePointsResponse>
 }

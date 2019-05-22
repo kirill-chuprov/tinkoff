@@ -1,31 +1,37 @@
 package com.tinkoff.task.ui.map
 
 data class MapState(
-  val success: Boolean = false, val loading: Boolean = false,
+  val success: Boolean = false,
+  val loading: Boolean = false,
+  val depositePoints: List<ItemState.ItemDepositePoint> = emptyList(),
   val error: Throwable? = null
 )
 
 sealed class MapStateIntent {
-  object GetSampleData : MapStateIntent()
-  class GetObjectsNearYou(
+  class GetDepositePointAround(
     val longitude: Double,
     val latitude: Double,
     val radius: Int
   ) : MapStateIntent()
+}
 
-  class GetObjectsInBoundaries(
-    val southwestLongitude: Double,
-    val northeastLatitude: Double,
-    val northeastLongitude: Double,
-    val southwestLatitude: Double,
-    val radius: Float
-  ) : MapStateIntent()
-
+sealed class ItemState {
+  data class ItemDepositePoint(
+    val externalId: Int = Int.MIN_VALUE,
+    val partnerName: String = "",
+    val lat: Double = Double.MIN_VALUE,
+    val lon: Double = Double.MIN_VALUE,
+    val workHours: String = "",
+    val addressInfo: String = "",
+    val fullAddress: String = "",
+    val verificationInfo: String = ""
+  ) : ItemState()
 }
 
 sealed class MapStateChange {
   class Error(val error: Throwable) : MapStateChange()
   object HideError : MapStateChange()
   object Loading : MapStateChange()
-  object Success : MapStateChange()
+  class DepositePointInBoundariesReceived(val depositePoints: List<ItemState.ItemDepositePoint>) :
+    MapStateChange()
 }

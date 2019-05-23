@@ -1,6 +1,7 @@
 package com.tinkoff.task.repository.data.remote.api
 
 import com.tinkoff.task.repository.data.remote.entity.dto.DepositePointsResponse
+import com.tinkoff.task.repository.data.remote.entity.dto.PartnersResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,4 +16,9 @@ interface TinkoffApi {
     @Query("latitude") latitude: Double,
     @Query("radius") radius: Int
   ): Observable<DepositePointsResponse>
+
+  @GET("$V1/deposition_partners")
+  fun getPartners(
+    @Query("accountType") accountType: String
+  ): Observable<PartnersResponse>
 }

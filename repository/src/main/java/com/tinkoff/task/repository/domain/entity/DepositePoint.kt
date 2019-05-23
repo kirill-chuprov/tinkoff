@@ -7,6 +7,8 @@ package com.tinkoff.task.repository.domain.entity
 data class DepositePoint(
   var externalId: Int = Int.MIN_VALUE,
   var partnerName: String = "",
+  var picture: String = "",
+  var hasSeen: Boolean = false,
   var location: Location = Location(),
   var workHours: String = "",
   var addressInfo: String = "",

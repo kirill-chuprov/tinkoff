@@ -25,6 +25,7 @@ import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentMapBinding
 import com.tinkoff.task.ui.map.MapStateIntent.GetDepositePointAround
+import com.tinkoff.task.ui.map.MapStateIntent.GetPartners
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
@@ -117,14 +118,18 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
             val currentCenterLongitude = googleMap.cameraPosition.target.longitude
             val currentCenterLatitude = googleMap.cameraPosition.target.latitude
 
-            eventPublisher.onNext(
-              GetDepositePointAround(
-                currentCenterLongitude,
-                currentCenterLatitude,
-                results[0].toInt()
-              )
-            )
+//            eventPublisher.onNext(
+//              GetDepositePointAround(
+//                currentCenterLongitude,
+//                currentCenterLatitude,
+//                results[0].toInt()
+//              )
+//            )
           }
+        }
+
+        googleMap.setOnMarkerClickListener {
+          true
         }
       }
     }
@@ -133,7 +138,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
   override fun initIntents() {
     viewSubscriptions = Observable.merge(
       listOf(
-        Observable.just(true),
+        Observable.just(GetPartners),
         eventPublisher
       )
     ).subscribe(vmMapScreen.viewIntentsConsumer())
@@ -149,8 +154,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
       with(state.depositePoints) {
         googleMap.clear()
         forEach {
-          googleMap.addMarker(
-            MarkerOptions().position(LatLng(it.lat, it.lon)).title(it.partnerName)
+          val addMarker = googleMap.addMarker(
+            MarkerOptions().position(
+              LatLng(
+                it.lat,
+                it.lon
+              )
+            ).title(it.partnerName).snippet(it.partnerName)
           )
         }
       }

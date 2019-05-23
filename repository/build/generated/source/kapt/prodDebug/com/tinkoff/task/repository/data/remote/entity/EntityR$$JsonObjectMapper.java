@@ -35,7 +35,7 @@ public final class EntityR$$JsonObjectMapper extends JsonMapper<EntityR> {
       IOException {
     if ("data".equals(fieldName)) {
       instance.setData(jsonParser.getValueAsString(null));
-    } else if ("id".equals(fieldName)) {
+    } else if ("partnerId".equals(fieldName)) {
       instance.setId(jsonParser.getValueAsString(null));
     }
   }
@@ -50,7 +50,7 @@ public final class EntityR$$JsonObjectMapper extends JsonMapper<EntityR> {
       jsonGenerator.writeStringField("data", object.getData());
     }
     if (object.getId() != null) {
-      jsonGenerator.writeStringField("id", object.getId());
+      jsonGenerator.writeStringField("partnerId", object.getId());
     }
     if (writeStartAndEnd) {
       jsonGenerator.writeEndObject();

@@ -2,27 +2,15 @@ package com.tinkoff.task.repository.data.local.db
 
 import androidx.room.TypeConverter
 import com.bluelinelabs.logansquare.LoganSquare
-import java.text.SimpleDateFormat
-import java.util.*
+import com.tinkoff.task.repository.data.remote.entity.LocationR
+import com.tinkoff.task.repository.domain.entity.Location
 
 class DbTypeConverters {
 
   @TypeConverter
-  fun fromStringToList(value: String): List<String> =
-    LoganSquare.parseList(value, String::class.java)
+  fun fromStringToLocation(value: String): LocationR =
+    LoganSquare.parse(value, LocationR::class.java)
 
   @TypeConverter
-  fun fromListToString(list: List<String>): String = LoganSquare.serialize(list)
-
-  @TypeConverter
-  fun fromStringToDate(dateString: String): Date {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-    return dateFormat.parse(dateString)
-  }
-
-  @TypeConverter
-  fun fromDateToString(date: Date): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-    return dateFormat.format(date)
-  }
+  fun fromLocationToString(location: LocationR): String = LoganSquare.serialize(location)
 }

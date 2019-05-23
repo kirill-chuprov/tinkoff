@@ -12,4 +12,6 @@ interface DepositePointsDataSource {
     latitude: Double,
     radius: Int
   ): Observable<List<DepositePoint>>
+
+  fun observeDepositePoints(): Observable<List<DepositePoint>>
 }

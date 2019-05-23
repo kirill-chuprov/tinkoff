@@ -7,11 +7,13 @@ import io.reactivex.Observable
  * Created by Kirill Chuprov on 5/22/19.
  */
 
-interface MapsRepository {
+interface DepositePointsRepository {
 
   fun getDepositePointsAround(
     longitude: Double,
     latitude: Double,
     radius: Int
   ): Observable<List<DepositePoint>>
+
+  fun observeDepositePoints(): Observable<List<DepositePoint>>
 }

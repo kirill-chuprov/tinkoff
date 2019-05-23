@@ -3,11 +3,13 @@ package com.tinkoff.task.ui.map
 data class MapState(
   val success: Boolean = false,
   val loading: Boolean = false,
+  val werePartnersSavedInDB: Boolean = false,
   val depositePoints: List<ItemState.ItemDepositePoint> = emptyList(),
   val error: Throwable? = null
 )
 
 sealed class MapStateIntent {
+  object GetPartners : MapStateIntent()
   class GetDepositePointAround(
     val longitude: Double,
     val latitude: Double,
@@ -32,6 +34,7 @@ sealed class MapStateChange {
   class Error(val error: Throwable) : MapStateChange()
   object HideError : MapStateChange()
   object Loading : MapStateChange()
+  object PartnersWereReceivedAndSaved : MapStateChange()
   class DepositePointInBoundariesReceived(val depositePoints: List<ItemState.ItemDepositePoint>) :
     MapStateChange()
 }

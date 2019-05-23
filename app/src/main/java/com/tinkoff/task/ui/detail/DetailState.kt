@@ -6,7 +6,7 @@ data class DetailState(
 )
 
 sealed class DetailStateIntent {
-  object GetSampleData : DetailStateIntent()
+  object GetPointData : DetailStateIntent()
 }
 
 sealed class DetailStateChange {

@@ -9,7 +9,7 @@ import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentDetailBinding
-import com.tinkoff.task.ui.detail.DetailStateIntent.GetSampleData
+import com.tinkoff.task.ui.list.ListStateIntent.GetPartners
 import io.reactivex.Observable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,7 +36,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(), BaseView<DetailSta
   override fun initIntents() {
     viewSubscriptions = Observable.merge(
       listOf(
-        Observable.just(GetSampleData)
+        Observable.just(GetPartners)
       )
     ).subscribe(vmDetailScreen.viewIntentsConsumer())
   }

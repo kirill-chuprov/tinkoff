@@ -17,7 +17,7 @@ sealed class ItemState {
 }
 
 sealed class ListStateIntent {
-  object GetSampleData : ListStateIntent()
+  object GetPartners : ListStateIntent()
 }
 
 sealed class ListStateChange {

@@ -9,7 +9,7 @@ import com.tinkoff.task.repository.domain.entity.Partner
  */
 @JsonObject
 data class PartnerR(
-  @JsonField(name = ["id"]) var partnerId: String? = "",
+  @JsonField(name = ["id"]) var id: String? = "",
   @JsonField(name = ["name"]) var name: String? = "",
   @JsonField(name = ["picture"]) var picture: String? = "",
   @JsonField(name = ["url"]) var url: String? = "",
@@ -23,7 +23,7 @@ data class PartnerR(
   )
 
 fun PartnerR.toDomain() = Partner(
-  partnerId = partnerId ?: "",
+  id = id ?: "",
   name = name ?: "",
   picture = picture ?: "",
   url = url ?: "",

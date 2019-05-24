@@ -1,5 +1,7 @@
 package com.tinkoff.task.ui.map
 
+import com.tinkoff.task.ui.map.ItemState.ItemDepositePoint
+
 data class MapState(
   val success: Boolean = false,
   val loading: Boolean = false,
@@ -35,6 +37,6 @@ sealed class MapStateChange {
   object HideError : MapStateChange()
   object Loading : MapStateChange()
   object PartnersWereReceivedAndSaved : MapStateChange()
-  class DepositePointInBoundariesReceived(val depositePoints: List<ItemState.ItemDepositePoint>) :
+  class DepositePointsReceivedAndSaved(val depositePoints: List<ItemDepositePoint>) :
     MapStateChange()
 }

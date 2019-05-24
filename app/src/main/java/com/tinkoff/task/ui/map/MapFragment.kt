@@ -13,6 +13,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -118,17 +119,23 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
             val currentCenterLongitude = googleMap.cameraPosition.target.longitude
             val currentCenterLatitude = googleMap.cameraPosition.target.latitude
 
-//            eventPublisher.onNext(
-//              GetDepositePointAround(
-//                currentCenterLongitude,
-//                currentCenterLatitude,
-//                results[0].toInt()
-//              )
-//            )
+            if (results[0].toInt() > 2000) {
+              Toast.makeText(context, results[0].toInt().toString(), Toast.LENGTH_SHORT).show()
+            } else {
+              eventPublisher.onNext(
+                GetDepositePointAround(
+                  currentCenterLongitude,
+                  currentCenterLatitude,
+                  results[0].toInt()
+                )
+              )
+            }
+
           }
         }
 
         googleMap.setOnMarkerClickListener {
+          it.title
           true
         }
       }

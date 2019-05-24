@@ -1,6 +1,8 @@
 package com.tinkoff.task.repository.domain.datasource
 
 import com.tinkoff.task.repository.domain.entity.DepositePoint
+import com.tinkoff.task.repository.domain.entity.Partner
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**
@@ -14,4 +16,8 @@ interface DepositePointsDataSource {
   ): Observable<List<DepositePoint>>
 
   fun observeDepositePoints(): Observable<List<DepositePoint>>
+
+  fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable
+
+  fun saveCurrentDepositePointsOnMap(depositePoints: List<DepositePoint>): Completable
 }

@@ -2,6 +2,7 @@ package com.tinkoff.task.repository.domain.interactors
 
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.repository.DepositePointsRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**

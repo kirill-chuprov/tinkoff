@@ -14,8 +14,9 @@ import org.koin.standalone.inject
 val mainModule = module {
 
     single<ImageLoader> { GlideImageLoader }
+    single { ImageBindingAdapter(get()) }
     viewModel { MapViewModel(get(),get()) }
-    viewModel { ListViewModel(get()) }
+    viewModel { ListViewModel(get(),get(),get()) }
     viewModel { DetailViewModel() }
 
 }

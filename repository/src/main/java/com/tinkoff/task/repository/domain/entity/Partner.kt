@@ -7,7 +7,7 @@ import com.tinkoff.task.repository.data.local.entity.PartnerL
  */
 
 data class Partner(
-  var partnerId: String ="",
+  var id: String ="",
   var name: String = "",
   var picture: String = "",
   var url: String = "",
@@ -17,11 +17,15 @@ data class Partner(
   var description: String = "",
   var moneyMin: Int = Int.MIN_VALUE,
   var moneyMax: Int = Int.MIN_VALUE
-)
+){
+  companion object{
+    val empty = Partner()
+  }
+}
 
 fun Partner.toLocal() =
   PartnerL(
-    partnerId = partnerId,
+    id = id,
     name = name,
     picture = picture,
     url = url,

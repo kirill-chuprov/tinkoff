@@ -15,5 +15,6 @@ class TinkoffDbProvider {
 
     private fun buildDatabase(context: Context) =
       Room.databaseBuilder(context, TinkoffDb::class.java, "TinkoffDatabase")
+        .allowMainThreadQueries()
         .build()
   }}

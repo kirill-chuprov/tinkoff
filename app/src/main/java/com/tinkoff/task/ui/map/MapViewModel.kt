@@ -5,8 +5,7 @@ import com.tinkoff.task.common.startWithAndErrHandleWithIO
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.interactors.GetDepositePointAroundUseCase
 import com.tinkoff.task.repository.domain.interactors.GetPartnersUseCase
-import com.tinkoff.task.repository.domain.interactors.ObserveDepositePointsUseCase
-import com.tinkoff.task.ui.map.MapStateChange.DepositePointInBoundariesReceived
+import com.tinkoff.task.ui.map.MapStateChange.DepositePointsReceivedAndSaved
 import com.tinkoff.task.ui.map.MapStateChange.Error
 import com.tinkoff.task.ui.map.MapStateChange.HideError
 import com.tinkoff.task.ui.map.MapStateChange.Loading
@@ -20,7 +19,6 @@ import io.reactivex.subjects.PublishSubject
 class MapViewModel(
   private val getDepositePointAroundUseCase: GetDepositePointAroundUseCase,
   private val getPartnersUseCase: GetPartnersUseCase
-  private val observeDepositePointsUseCase: ObserveDepositePointsUseCase
 ) :
   BaseViewModel<MapState>() {
 
@@ -28,8 +26,10 @@ class MapViewModel(
 
   override fun initState(): MapState = MapState()
 
-  override fun vmIntents(): Observable<Any> =
-    observeDepositePointsUseCase.observeDepositePoints().flatMap { }
+//  override fun vmIntents(): Observable<Any> =
+//    observeDepositePointsUseCase.observeDepositePoints()
+//      .map { depositePoints -> DepositePointInBoundariesReceived(depositePoints.map { it.toPresentation() }) }
+//      .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
 
   override fun viewIntents(intentStream: Observable<*>): Observable<Any> =
     Observable.merge(
@@ -41,7 +41,7 @@ class MapViewModel(
               it.latitude,
               it.radius
             )
-              .map { DepositePointInBoundariesReceived(it.map { it.toPresentation() }) }
+              .map { DepositePointsReceivedAndSaved(it.map { it.toPresentation() }) }
               .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
           },
         intentStream.ofType(GetPartners::class.java)
@@ -75,7 +75,7 @@ class MapViewModel(
         error = null
       )
 
-      is DepositePointInBoundariesReceived -> previousState.copy(
+      is DepositePointsReceivedAndSaved -> previousState.copy(
         loading = false,
         depositePoints = stateChange.depositePoints,
         success = true,

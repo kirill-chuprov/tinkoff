@@ -5,6 +5,6 @@ import com.bluelinelabs.logansquare.annotation.JsonObject
 
 @JsonObject
 data class EntityR(
-  @JsonField(name = ["partnerId"]) var id: String? = "",
+  @JsonField(name = ["id"]) var id: String? = "",
   @JsonField(name = ["data"]) var data: String? = ""
 )

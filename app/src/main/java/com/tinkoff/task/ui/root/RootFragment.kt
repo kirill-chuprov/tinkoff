@@ -10,54 +10,53 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.tinkoff.task.R
 import com.tinkoff.task.databinding.FragmentRootBinding
-import com.tinkoff.task.ui.detail.DetailFragment
+import com.tinkoff.task.ui.list.ListFragment
 import com.tinkoff.task.ui.map.MapFragment
 
 class RootFragment : Fragment() {
 
-    private var viewBinding: FragmentRootBinding? = null
+  private var viewBinding: FragmentRootBinding? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.fragment_root,
-            container,
-            false
-        )
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    viewBinding = DataBindingUtil.inflate(
+      LayoutInflater.from(context),
+      R.layout.fragment_root,
+      container,
+      false
+    )
 
-        with(viewBinding!!) {
-            viewpager.adapter = RootPagerAdapter(childFragmentManager)
-            tabs.setupWithViewPager(viewpager)
-        }
-
-        return viewBinding!!.root
+    with(viewBinding!!) {
+      viewpager.adapter = RootPagerAdapter(childFragmentManager)
+      tabs.setupWithViewPager(viewpager)
     }
 
+    return viewBinding!!.root
+  }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
-    }
+  override fun onDestroyView() {
+    super.onDestroyView()
+    viewBinding = null
+  }
 
-    inner class RootPagerAdapter(fragmentManager: FragmentManager) :
-        FragmentPagerAdapter(fragmentManager) {
+  inner class RootPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager) {
 
-        override fun getCount(): Int = 2
+    override fun getCount(): Int = 2
 
-        override fun getItem(position: Int): Fragment =
-            when (position) {
-                0 -> MapFragment()
-                else -> DetailFragment()
-            }
+    override fun getItem(position: Int): Fragment =
+      when (position) {
+        0 -> MapFragment()
+        else -> ListFragment()
+      }
 
-        override fun getPageTitle(position: Int): CharSequence? =
-            when (position) {
-                0 -> getString(R.string.map)
-                else -> getString(R.string.list)
-            }
-    }
+    override fun getPageTitle(position: Int): CharSequence? =
+      when (position) {
+        0 -> getString(R.string.map)
+        else -> getString(R.string.list)
+      }
+  }
 }

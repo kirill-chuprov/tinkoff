@@ -4,10 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.tinkoff.task.repository.data.remote.entity.LocationR
-import com.tinkoff.task.repository.data.remote.entity.toDomain
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 
 /**
@@ -19,28 +16,20 @@ import com.tinkoff.task.repository.domain.entity.DepositePoint
   foreignKeys = [
     ForeignKey(
       entity = PartnerL::class,
-      parentColumns = ["partnerId"],
+      parentColumns = ["id"],
       childColumns = ["partnerName"],
       onDelete = CASCADE
-    ), ForeignKey(
-      entity = PartnerL::class,
-      parentColumns = ["picture"],
-      childColumns = ["imgUrl"],
-      onDelete = CASCADE
-    )], indices = [Index(value = ["partnerName", "imgUrl"], unique = true)]
+    )]
 )
-
 data class DepositePointL(
-  @PrimaryKey
   val externalId: Int = Int.MIN_VALUE,
-  @ColumnInfo(name = "partnerName")
   val partnerName: String = "",
-  @ColumnInfo(name = "imgUrl", index = true)
   val imgUrl: String = "",
   val hasSeen: Boolean = false,
-  val location: LocationR = LocationR(),
+  val location: LocationL = LocationL(),
   val workHours: String = "",
   val addressInfo: String = "",
+  @PrimaryKey
   val fullAddress: String = "",
   val verificationInfo: String = ""
 )

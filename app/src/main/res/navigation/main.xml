@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main" app:startDestination="@id/rootFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    app:startDestination="@id/rootFragment">
 
-    <fragment android:id="@+id/rootFragment" android:name="com.tinkoff.task.ui.root.RootFragment"
-              android:label="RootFragment">
-        <action android:id="@+id/action_rootFragment_to_detailFragment" app:destination="@id/detailFragment"/>
-    </fragment>
-    <fragment android:id="@+id/detailFragment" android:name="com.tinkoff.task.ui.detail.DetailFragment"
-              android:label="DetailFragment"/>
-    <fragment android:id="@+id/listFragment" android:name="com.tinkoff.task.ui.list.ListFragment"
-              android:label="ListFragment"/>
-    <fragment android:id="@+id/mapFragment" android:name="com.tinkoff.task.ui.map.MapFragment"
-              android:label="MapFragment"/>
+  <fragment
+      android:id="@+id/rootFragment"
+      android:name="com.tinkoff.task.ui.root.RootFragment"
+      android:label="RootFragment">
+    <action
+        android:id="@+id/action_rootFragment_to_detailFragment"
+        app:destination="@id/detailFragment"/>
+  </fragment>
+  <fragment
+      android:id="@+id/detailFragment"
+      android:name="com.tinkoff.task.ui.detail.DetailFragment"
+      android:label="DetailFragment"/>
+  <fragment
+      android:id="@+id/listFragment"
+      android:name="com.tinkoff.task.ui.list.ListFragment"
+      android:label="ListFragment"/>
+  <fragment
+      android:id="@+id/mapFragment"
+      android:name="com.tinkoff.task.ui.map.MapFragment"
+      android:label="MapFragment"/>
 </navigation>

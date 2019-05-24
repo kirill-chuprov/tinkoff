@@ -2,27 +2,63 @@ package com.tinkoff.task.ui.list
 
 import com.tinkoff.task.common.BaseViewModel
 import com.tinkoff.task.common.startWithAndErrHandleWithIO
-import com.tinkoff.task.repository.domain.interactors.GetPartnersUseCase
+import com.tinkoff.task.repository.domain.entity.DepositePoint
+import com.tinkoff.task.repository.domain.entity.Partner
+import com.tinkoff.task.repository.domain.interactors.ObserveDepositePointsUseCase
+import com.tinkoff.task.repository.domain.interactors.ObservePartnersUseCase
+import com.tinkoff.task.ui.list.ItemState.ItemDepositePoint
+import com.tinkoff.task.ui.list.ListStateChange.DepositePointsChanged
 import com.tinkoff.task.ui.list.ListStateChange.Error
 import com.tinkoff.task.ui.list.ListStateChange.HideError
 import com.tinkoff.task.ui.list.ListStateChange.Loading
-import com.tinkoff.task.ui.list.ListStateChange.Success
-import com.tinkoff.task.ui.list.ListStateIntent.GetPartners
+import com.tinkoff.task.ui.list.ListStateChange.PartnersChanged
+import com.tinkoff.task.ui.list.ListStateIntent.ObserveDepositePoints
+import com.tinkoff.task.ui.list.ListStateIntent.ObservePartners
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
-class ListViewModel(private val getPartnersUseCase: GetPartnersUseCase) :
+class ListViewModel(
+  private val observePartnersUseCase: ObservePartnersUseCase,
+  private val observeDepositePointsUseCase: ObserveDepositePointsUseCase,
+  private val density: String
+) :
   BaseViewModel<ListState>() {
+
+  internal val eventPublisher: PublishSubject<ListStateIntent> by lazy { PublishSubject.create<ListStateIntent>() }
 
   override fun initState(): ListState = ListState()
 
   override fun viewIntents(intentStream: Observable<*>): Observable<Any> =
     Observable.merge(
       listOf(
-        intentStream.ofType(GetPartners::class.java)
-          .map { Success }
-          .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+        intentStream.ofType(ObservePartners::class.java)
+          .switchMap {
+            observePartnersUseCase.observePartners()
+              .map { PartnersChanged(it) }
+              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+          }
+        ,
+        intentStream.ofType(ObserveDepositePoints::class.java)
+          .switchMap {
+            observeDepositePointsUseCase.observeDepositePoints()
+              .map {
+                DepositePointsChanged(it.map { it.toPresentation() })
+              }
+              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+          }
       )
     )
+
+  private fun DepositePoint.toPresentation() = ItemDepositePoint(
+    externalId = externalId,
+    partnerName = partnerName,
+    lat = location.latitude,
+    lon = location.longitude,
+    workHours = workHours,
+    addressInfo = addressInfo,
+    fullAddress = fullAddress,
+    verificationInfo = verificationInfo
+  )
 
   override fun reduceState(previousState: ListState, stateChange: Any): ListState =
     when (stateChange) {
@@ -32,9 +68,17 @@ class ListViewModel(private val getPartnersUseCase: GetPartnersUseCase) :
         error = null
       )
 
-      is Success -> previousState.copy(
+      is DepositePointsChanged -> previousState.copy(
         loading = false,
+        depositePoints = addPicturesToPoints(stateChange.depositePoints, previousState.partners),
         success = true,
+        error = null
+      )
+
+      is PartnersChanged -> previousState.copy(
+        loading = false,
+        partners = stateChange.partners,
+        success = false,
         error = null
       )
 
@@ -48,4 +92,27 @@ class ListViewModel(private val getPartnersUseCase: GetPartnersUseCase) :
 
       else -> previousState
     }
+
+  private fun createPictureUrl(density: String, pictureName: String) =
+    "https://static.tinkoff.ru/icons/deposition-partners-v3/$density/$pictureName"
+
+  private fun addPicturesToPoints(
+    points: List<ItemDepositePoint>,
+    partners: List<Partner>
+  ): List<ItemDepositePoint> {
+    val pointsWithPicture = mutableListOf<ItemDepositePoint>()
+    points.forEach { point ->
+      partners.forEach { partner ->
+        if (partner.id == point.partnerName) pointsWithPicture.add(
+          point.copy(
+            picture = createPictureUrl(
+              density,
+              partner.picture
+            )
+          )
+        )
+      }
+    }
+    return pointsWithPicture
+  }
 }

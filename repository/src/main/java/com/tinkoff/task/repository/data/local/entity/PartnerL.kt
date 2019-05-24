@@ -11,13 +11,12 @@ import com.tinkoff.task.repository.domain.entity.Partner
  */
 @Entity(
   tableName = "partners",
-  indices = [Index(value = ["picture"], unique = true), Index(value = ["partnerId"], unique = true)]
+  indices = [Index(value = ["id"], unique = true)]
 )
 data class PartnerL(
-  @ColumnInfo(name = "partnerId")
-  val partnerId: String = "",
+  @PrimaryKey
+  val id: String = "",
   val name: String = "",
-  @ColumnInfo(name = "picture")
   val picture: String = "",
   val url: String = "",
   val limitations: String = "",
@@ -26,13 +25,10 @@ data class PartnerL(
   val description: String = "",
   val moneyMin: Int = Int.MIN_VALUE,
   val moneyMax: Int = Int.MIN_VALUE
-) {
-  @PrimaryKey(autoGenerate = true)
-  var id: Int = 0
-}
+)
 
 fun PartnerL.toDomain() = Partner(
-  partnerId = partnerId,
+  id = id,
   name = name,
   picture = picture,
   url = url,

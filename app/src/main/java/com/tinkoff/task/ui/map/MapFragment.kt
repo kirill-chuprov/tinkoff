@@ -25,6 +25,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentMapBinding
+import com.tinkoff.task.ui.depositepointbottomdialog.DepositePointBottomSheetFragment
 import com.tinkoff.task.ui.map.MapStateIntent.GetDepositePointAround
 import com.tinkoff.task.ui.map.MapStateIntent.GetPartners
 import io.reactivex.Observable
@@ -135,7 +136,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
         }
 
         googleMap.setOnMarkerClickListener {
-          it.title
+          DepositePointBottomSheetFragment.newInstance(it.title)
+            .show(childFragmentManager, "DepositePointBottomSheetFragment")
           true
         }
       }
@@ -161,13 +163,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), BaseView<MapState> {
       with(state.depositePoints) {
         googleMap.clear()
         forEach {
-          val addMarker = googleMap.addMarker(
+          googleMap.addMarker(
             MarkerOptions().position(
               LatLng(
                 it.lat,
                 it.lon
               )
-            ).title(it.partnerName).snippet(it.partnerName)
+            ).title(it.fullAddress)
           )
         }
       }

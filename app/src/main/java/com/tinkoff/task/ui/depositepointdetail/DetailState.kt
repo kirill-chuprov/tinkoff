@@ -1,4 +1,4 @@
-package com.tinkoff.task.ui.detail
+package com.tinkoff.task.ui.depositepointdetail
 
 data class DetailState(
   val success: Boolean = false,  val loading: Boolean = false,

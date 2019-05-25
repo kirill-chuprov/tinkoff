@@ -56,3 +56,6 @@ val editTextAfterTextChangeTransformer by lazy(NONE) {
 
 inline fun <T> TextView.debouncedAfterTextChanges(noinline mapper: (String) -> T): Observable<T> =
   afterTextChangeEvents().compose(editTextAfterTextChangeTransformer).map(mapper)
+
+fun createPictureUrl(density: String, pictureName: String) =
+  "https://static.tinkoff.ru/icons/deposition-partners-v3/$density/$pictureName"

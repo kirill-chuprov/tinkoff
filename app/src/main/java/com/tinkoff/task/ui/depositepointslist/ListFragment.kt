@@ -1,17 +1,21 @@
-package com.tinkoff.task.ui.list
+package com.tinkoff.task.ui.depositepointslist
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.State
 import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
+import com.tinkoff.task.common.px
 import com.tinkoff.task.databinding.FragmentListBinding
-import com.tinkoff.task.ui.list.ListStateIntent.ObserveDepositePoints
-import com.tinkoff.task.ui.list.ListStateIntent.ObservePartners
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObserveDepositePoints
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObservePartners
 import io.reactivex.Observable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,6 +50,22 @@ class ListFragment : BaseFragment<FragmentListBinding>(), BaseView<ListState> {
     viewBinding!!.rvDepositePoints.apply {
       layoutManager = LinearLayoutManager(context)
       adapter = homeAdapter
+      addItemDecoration(object : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+          outRect: Rect,
+          view: View,
+          parent: RecyclerView,
+          state: State
+        ) {
+          outRect.top = 4.px
+          outRect.right = 8.px
+          outRect.left = 8.px
+          outRect.bottom = 4.px
+
+          if (parent.getChildAdapterPosition(view) == 0) outRect.top = 8.px
+        }
+      })
+
     }
   }
 

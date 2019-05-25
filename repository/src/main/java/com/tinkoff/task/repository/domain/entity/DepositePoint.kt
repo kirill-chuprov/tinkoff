@@ -16,7 +16,11 @@ data class DepositePoint(
   var addressInfo: String = "",
   var fullAddress: String = "",
   var verificationInfo: String = ""
-)
+) {
+  companion object {
+    val empty = DepositePoint()
+  }
+}
 
 fun DepositePoint.toLocal() =
   DepositePointL(

@@ -14,11 +14,11 @@
   </fragment>
   <fragment
       android:id="@+id/detailFragment"
-      android:name="com.tinkoff.task.ui.detail.DetailFragment"
+      android:name="com.tinkoff.task.ui.depositepointdetail.DetailFragment"
       android:label="DetailFragment"/>
   <fragment
       android:id="@+id/listFragment"
-      android:name="com.tinkoff.task.ui.list.ListFragment"
+      android:name="com.tinkoff.task.ui.depositepointslist.ListFragment"
       android:label="ListFragment"/>
   <fragment
       android:id="@+id/mapFragment"

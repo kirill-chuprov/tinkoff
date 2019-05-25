@@ -1,4 +1,4 @@
-package com.tinkoff.task.ui.detail
+package com.tinkoff.task.ui.depositepointdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentDetailBinding
-import com.tinkoff.task.ui.list.ListStateIntent.ObservePartners
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObservePartners
 import io.reactivex.Observable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

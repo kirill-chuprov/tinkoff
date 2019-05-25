@@ -8,7 +8,7 @@
 
     <variable
         name="viewState"
-        type="com.tinkoff.task.ui.detail.DetailState"/>
+        type="com.tinkoff.task.ui.depositepointdetail.DetailState"/>
   </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

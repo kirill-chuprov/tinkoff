@@ -1,12 +1,12 @@
-package com.tinkoff.task.ui.detail
+package com.tinkoff.task.ui.depositepointdetail
 
 import com.tinkoff.task.common.BaseViewModel
 import com.tinkoff.task.common.startWithAndErrHandleWithIO
-import com.tinkoff.task.ui.detail.DetailStateChange.Error
-import com.tinkoff.task.ui.detail.DetailStateChange.HideError
-import com.tinkoff.task.ui.detail.DetailStateChange.Loading
-import com.tinkoff.task.ui.detail.DetailStateChange.Success
-import com.tinkoff.task.ui.detail.DetailStateIntent.GetPointData
+import com.tinkoff.task.ui.depositepointdetail.DetailStateChange.Error
+import com.tinkoff.task.ui.depositepointdetail.DetailStateChange.HideError
+import com.tinkoff.task.ui.depositepointdetail.DetailStateChange.Loading
+import com.tinkoff.task.ui.depositepointdetail.DetailStateChange.Success
+import com.tinkoff.task.ui.depositepointdetail.DetailStateIntent.GetPointData
 import io.reactivex.Observable
 
 class DetailViewModel() : BaseViewModel<DetailState>() {

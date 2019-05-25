@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.tinkoff.task.R
 import com.tinkoff.task.databinding.FragmentRootBinding
-import com.tinkoff.task.ui.list.ListFragment
+import com.tinkoff.task.ui.depositepointslist.ListFragment
 import com.tinkoff.task.ui.map.MapFragment
 
 class RootFragment : Fragment() {

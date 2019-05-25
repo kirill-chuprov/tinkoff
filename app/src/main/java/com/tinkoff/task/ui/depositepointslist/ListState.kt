@@ -1,7 +1,7 @@
-package com.tinkoff.task.ui.list
+package com.tinkoff.task.ui.depositepointslist
 
 import com.tinkoff.task.repository.domain.entity.Partner
-import com.tinkoff.task.ui.list.ItemState.ItemDepositePoint
+import com.tinkoff.task.ui.depositepointslist.ItemState.ItemDepositePoint
 
 data class ListState(
   val success: Boolean = false, val loading: Boolean = false,

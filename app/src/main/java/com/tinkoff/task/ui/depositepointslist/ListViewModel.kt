@@ -1,19 +1,20 @@
-package com.tinkoff.task.ui.list
+package com.tinkoff.task.ui.depositepointslist
 
 import com.tinkoff.task.common.BaseViewModel
+import com.tinkoff.task.common.createPictureUrl
 import com.tinkoff.task.common.startWithAndErrHandleWithIO
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.entity.Partner
 import com.tinkoff.task.repository.domain.interactors.ObserveDepositePointsUseCase
 import com.tinkoff.task.repository.domain.interactors.ObservePartnersUseCase
-import com.tinkoff.task.ui.list.ItemState.ItemDepositePoint
-import com.tinkoff.task.ui.list.ListStateChange.DepositePointsChanged
-import com.tinkoff.task.ui.list.ListStateChange.Error
-import com.tinkoff.task.ui.list.ListStateChange.HideError
-import com.tinkoff.task.ui.list.ListStateChange.Loading
-import com.tinkoff.task.ui.list.ListStateChange.PartnersChanged
-import com.tinkoff.task.ui.list.ListStateIntent.ObserveDepositePoints
-import com.tinkoff.task.ui.list.ListStateIntent.ObservePartners
+import com.tinkoff.task.ui.depositepointslist.ItemState.ItemDepositePoint
+import com.tinkoff.task.ui.depositepointslist.ListStateChange.DepositePointsChanged
+import com.tinkoff.task.ui.depositepointslist.ListStateChange.Error
+import com.tinkoff.task.ui.depositepointslist.ListStateChange.HideError
+import com.tinkoff.task.ui.depositepointslist.ListStateChange.Loading
+import com.tinkoff.task.ui.depositepointslist.ListStateChange.PartnersChanged
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObserveDepositePoints
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObservePartners
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -92,9 +93,6 @@ class ListViewModel(
 
       else -> previousState
     }
-
-  private fun createPictureUrl(density: String, pictureName: String) =
-    "https://static.tinkoff.ru/icons/deposition-partners-v3/$density/$pictureName"
 
   private fun addPicturesToPoints(
     points: List<ItemDepositePoint>,

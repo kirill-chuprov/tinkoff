@@ -13,12 +13,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/colorPrimary"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorAccent"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"/>
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@android:color/white"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

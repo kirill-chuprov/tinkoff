@@ -1,4 +1,4 @@
-package com.tinkoff.task.ui.list
+package com.tinkoff.task.ui.depositepointslist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.jakewharton.rxbinding2.view.clicks
 import com.tinkoff.task.BR
 import com.tinkoff.task.R
-import com.tinkoff.task.ui.list.DepositePointsAdapter.DepositionPointViewHolder
-import com.tinkoff.task.ui.list.ItemState.ItemDepositePoint
-import com.tinkoff.task.ui.list.ListStateIntent.GoToPointDetail
+import com.tinkoff.task.ui.depositepointslist.DepositePointsAdapter.DepositionPointViewHolder
+import com.tinkoff.task.ui.depositepointslist.ItemState.ItemDepositePoint
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.GoToPointDetail
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit.MILLISECONDS
 

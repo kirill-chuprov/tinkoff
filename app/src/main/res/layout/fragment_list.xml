@@ -6,7 +6,7 @@
 
     <variable
         name="viewState"
-        type="com.tinkoff.task.ui.list.ListState"/>
+        type="com.tinkoff.task.ui.depositepointslist.ListState"/>
   </data>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"

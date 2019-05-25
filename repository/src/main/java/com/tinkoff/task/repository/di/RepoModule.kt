@@ -12,6 +12,8 @@ import com.tinkoff.task.repository.data.repositoryImpl.PartnersRepositoryImpl
 import com.tinkoff.task.repository.domain.datasource.DepositePointsDataSource
 import com.tinkoff.task.repository.domain.datasource.PartnersDataSource
 import com.tinkoff.task.repository.domain.interactors.GetDepositePointAroundUseCase
+import com.tinkoff.task.repository.domain.interactors.GetDepositePointUseCase
+import com.tinkoff.task.repository.domain.interactors.GetPartnerForPointUseCase
 import com.tinkoff.task.repository.domain.interactors.GetPartnersUseCase
 import com.tinkoff.task.repository.domain.interactors.ObserveDepositePointsUseCase
 import com.tinkoff.task.repository.domain.interactors.ObservePartnersUseCase
@@ -64,5 +66,7 @@ val repoModule = module {
   factory { ObserveDepositePointsUseCase(get()) }
   factory { SaveDepositePointsUseCase(get()) }
   factory { ObservePartnersUseCase(get()) }
+  factory { GetDepositePointUseCase(get()) }
+  factory { GetPartnerForPointUseCase(get()) }
 
 }

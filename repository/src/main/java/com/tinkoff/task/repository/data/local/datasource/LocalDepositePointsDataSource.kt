@@ -7,6 +7,7 @@ import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.entity.toLocal
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by Kirill Chuprov on 5/22/19.
@@ -16,15 +17,15 @@ class LocalDepositePointsDataSource(private val depositePointDao: DepositePointD
   override fun observeDepositePoints(): Observable<List<DepositePoint>> =
     depositePointDao.getAll().map { if (it.isEmpty()) emptyList() else it.map { it.toDomain() } }.toObservable()
 
+  override fun getDepositePoint(fullAddress: String): Single<DepositePoint> =
+    depositePointDao.getDepositePointsByAddress(fullAddress).map { it.toDomain() }
+      .onErrorReturn { DepositePoint.empty }
+
   override fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable =
     Completable.fromCallable {
       val points = depositePoints.map { it.toLocal() }
       depositePointDao.insertAll(points)
     }
-
-  override fun saveCurrentDepositePointsOnMap(depositePoints: List<DepositePoint>): Completable {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
 
   override fun getDepositePointsAround(
     longitude: Double,

@@ -26,11 +26,6 @@ class MapViewModel(
 
   override fun initState(): MapState = MapState()
 
-//  override fun vmIntents(): Observable<Any> =
-//    observeDepositePointsUseCase.observeDepositePoints()
-//      .map { depositePoints -> DepositePointInBoundariesReceived(depositePoints.map { it.toPresentation() }) }
-//      .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
-
   override fun viewIntents(intentStream: Observable<*>): Observable<Any> =
     Observable.merge(
       listOf(

@@ -7,6 +7,7 @@ import com.tinkoff.task.repository.domain.repository.DepositePointsRepository
 import io.reactivex.Completable
 import io.reactivex.Notification
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by Kirill Chuprov on 5/22/19.
@@ -35,7 +36,5 @@ class DepositePointsRepositoryImpl(
   override fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable =
     localDepositePointsDataSource.saveDepositePoints(depositePoints)
 
+  override fun getDepositePoint(fullAddress: String): Single<DepositePoint>  = localDepositePointsDataSource.getDepositePoint(fullAddress)
 }
-
-fun String.createPictureUrl(density: String, pictureName: String) =
-  "https//static.tinkoff.ru/icons/deposition-partners-v3/$density/$pictureName"

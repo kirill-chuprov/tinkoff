@@ -6,12 +6,14 @@ import com.tinkoff.task.repository.domain.datasource.DepositePointsDataSource
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by Kirill Chuprov on 5/22/19.
  */
 class RemoteDepositePointsDataSource(private val api: TinkoffApi) : DepositePointsDataSource {
-  override fun saveCurrentDepositePointsOnMap(depositePoints: List<DepositePoint>): Completable = throw UnsupportedOperationException()
+  override fun getDepositePoint(fullAddress: String): Single<DepositePoint> =
+    throw UnsupportedOperationException()
 
   override fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable =
     throw UnsupportedOperationException()

@@ -4,6 +4,7 @@ import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.entity.Partner
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * Created by Kirill Chuprov on 5/22/19.
@@ -19,5 +20,5 @@ interface DepositePointsDataSource {
 
   fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable
 
-  fun saveCurrentDepositePointsOnMap(depositePoints: List<DepositePoint>): Completable
+  fun getDepositePoint(fullAddress: String): Single<DepositePoint>
 }

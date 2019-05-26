@@ -15,6 +15,7 @@ data class DepositePointR(
   @JsonField(name = ["partnerName"]) var partnerName: String? = "",
   @JsonField(name = ["location"]) var location: LocationR? = LocationR(),
   @JsonField(name = ["workHours"]) var workHours: String? = "",
+  @JsonField(name = ["phones"]) var phones: String? = "",
   @JsonField(name = ["addressInfo"]) var addressInfo: String? = "",
   @JsonField(name = ["fullAddress"]) var fullAddress: String? = "",
   @JsonField(name = ["verificationInfo"]) var verificationInfo: String? = ""
@@ -26,6 +27,7 @@ fun DepositePointR.toDomain() = DepositePoint(
   partnerName = partnerName ?: "",
   location = if (location != null) location!!.toDomain() else Location(),
   workHours = workHours ?: "",
+  phones = phones ?: "",
   addressInfo = addressInfo ?: "",
   fullAddress = fullAddress ?: "",
   verificationInfo = verificationInfo ?: ""

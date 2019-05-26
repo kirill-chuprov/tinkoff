@@ -3,7 +3,13 @@
   <string name="map">Карта</string>
   <string name="list">Список</string>
   <string name="point">Точка пополнения</string>
-  <string name="location_service_disabled">Геолокация отключена </string>
+  <string name="location_service_disabled">Геолокация отключена. Кнопка "моя локация" не будет видна. Включить в настройках? </string>
+  <string name="location_service_restricted"> Вы запертили получать геолокацию. Разрешить получать геолокацию в настройках?  </string>
   <string name="go_to_location_settings"> В настройки  </string>
+  <string name="work_hours"> Часы работы  </string>
+  <string name="enrollment"> Зачисление  </string>
+  <string name="restrictions"> Ограничения  </string>
+  <string name="conditions"> Условия  </string>
+  <string name="information"> Информация  </string>
   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDCt1ul5p8VvxCOAFk1MxNg-OBuvncyAFg</string>
 </resources>

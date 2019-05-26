@@ -17,7 +17,7 @@ import com.tinkoff.task.repository.domain.interactors.GetPartnerForPointUseCase
 import com.tinkoff.task.repository.domain.interactors.GetPartnersUseCase
 import com.tinkoff.task.repository.domain.interactors.ObserveDepositePointsUseCase
 import com.tinkoff.task.repository.domain.interactors.ObservePartnersUseCase
-import com.tinkoff.task.repository.domain.interactors.SaveDepositePointsUseCase
+import com.tinkoff.task.repository.domain.interactors.RunCleanPointsTaskUseCase
 import com.tinkoff.task.repository.domain.repository.DepositePointsRepository
 import com.tinkoff.task.repository.domain.repository.PartnersRepository
 import org.koin.android.ext.koin.androidApplication
@@ -34,6 +34,8 @@ val repoModule = module {
   single { TinkoffDbProvider.getInstance(androidContext()).depositePointDao() }
   single { TinkoffDbProvider.getInstance(androidContext()).partnerDao() }
 
+  single { androidContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE) }
+
   single("density") {
     when (androidApplication().resources.displayMetrics.density) {
       1.0f -> mdpi
@@ -45,9 +47,7 @@ val repoModule = module {
 
   single { TinkoffApiProvider.createApi() }
 
-  single { androidContext().getSharedPreferences("sharedPrefs", MODE_PRIVATE) }
-
-  single<DepositePointsDataSource>("local") { LocalDepositePointsDataSource(get()) }
+  single<DepositePointsDataSource>("local") { LocalDepositePointsDataSource(get(), get()) }
   single<DepositePointsDataSource>("remote") { RemoteDepositePointsDataSource(get()) }
 
   single<PartnersDataSource>("localPartners") { LocalPartnersDataSource(get()) }
@@ -64,9 +64,9 @@ val repoModule = module {
   factory { GetDepositePointAroundUseCase(get()) }
   factory { GetPartnersUseCase(get()) }
   factory { ObserveDepositePointsUseCase(get()) }
-  factory { SaveDepositePointsUseCase(get()) }
   factory { ObservePartnersUseCase(get()) }
   factory { GetDepositePointUseCase(get()) }
   factory { GetPartnerForPointUseCase(get()) }
+  factory { RunCleanPointsTaskUseCase(get()) }
 
 }

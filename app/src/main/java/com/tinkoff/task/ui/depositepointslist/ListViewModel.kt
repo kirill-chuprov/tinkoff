@@ -2,6 +2,7 @@ package com.tinkoff.task.ui.depositepointslist
 
 import com.tinkoff.task.common.BaseViewModel
 import com.tinkoff.task.common.createPictureUrl
+import com.tinkoff.task.common.errHandleWithIO
 import com.tinkoff.task.common.startWithAndErrHandleWithIO
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.entity.Partner
@@ -13,6 +14,7 @@ import com.tinkoff.task.ui.depositepointslist.ListStateChange.Error
 import com.tinkoff.task.ui.depositepointslist.ListStateChange.HideError
 import com.tinkoff.task.ui.depositepointslist.ListStateChange.Loading
 import com.tinkoff.task.ui.depositepointslist.ListStateChange.PartnersChanged
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.GoToPointDetail
 import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObserveDepositePoints
 import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObservePartners
 import io.reactivex.Observable
@@ -25,8 +27,6 @@ class ListViewModel(
 ) :
   BaseViewModel<ListState>() {
 
-  internal val eventPublisher: PublishSubject<ListStateIntent> by lazy { PublishSubject.create<ListStateIntent>() }
-
   override fun initState(): ListState = ListState()
 
   override fun viewIntents(intentStream: Observable<*>): Observable<Any> =
@@ -36,7 +36,7 @@ class ListViewModel(
           .switchMap {
             observePartnersUseCase.observePartners()
               .map { PartnersChanged(it) }
-              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+              .errHandleWithIO{ Observable.just(Error(it), HideError) }
           }
         ,
         intentStream.ofType(ObserveDepositePoints::class.java)
@@ -45,7 +45,7 @@ class ListViewModel(
               .map {
                 DepositePointsChanged(it.map { it.toPresentation() })
               }
-              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+              .errHandleWithIO{ Observable.just(Error(it), HideError) }
           }
       )
     )

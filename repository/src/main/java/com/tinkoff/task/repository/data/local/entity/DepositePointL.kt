@@ -28,6 +28,7 @@ data class DepositePointL(
   val hasSeen: Boolean = false,
   val location: LocationL = LocationL(),
   val workHours: String = "",
+  val phones: String = "",
   val addressInfo: String = "",
   @PrimaryKey
   val fullAddress: String = "",
@@ -41,6 +42,7 @@ fun DepositePointL.toDomain() = DepositePoint(
   hasSeen = hasSeen,
   location = location.toDomain(),
   workHours = workHours,
+  phones = phones,
   addressInfo = addressInfo,
   fullAddress = fullAddress,
   verificationInfo = verificationInfo

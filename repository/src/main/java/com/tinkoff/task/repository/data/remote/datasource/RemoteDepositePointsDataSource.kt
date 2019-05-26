@@ -18,6 +18,8 @@ class RemoteDepositePointsDataSource(private val api: TinkoffApi) : DepositePoin
   override fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable =
     throw UnsupportedOperationException()
 
+  override fun runCleanPointsTask(): Completable = throw UnsupportedOperationException()
+
   override fun getDepositePointsAround(
     longitude: Double,
     latitude: Double,

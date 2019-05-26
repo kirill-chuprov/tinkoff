@@ -22,4 +22,6 @@ interface DepositePointsRepository {
   fun saveDepositePoints(depositePoints: List<DepositePoint>): Completable
 
   fun getDepositePoint(fullAddress: String): Single<DepositePoint>
+
+  fun runCleanPointsTask(): Completable
 }

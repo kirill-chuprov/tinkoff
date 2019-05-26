@@ -13,7 +13,6 @@ import com.tinkoff.task.ui.depositepointbottomdialog.DepositePointBottomSheetSta
 import com.tinkoff.task.ui.depositepointbottomdialog.DepositePointBottomSheetStateChange.PointReceived
 import com.tinkoff.task.ui.depositepointbottomdialog.DepositePointBottomSheetStateIntent.GetDataForDepositePoint
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 
 class DepositePointBottomSheetViewModel(
   private val getDepositePointUseCase: GetDepositePointUseCase,
@@ -21,8 +20,6 @@ class DepositePointBottomSheetViewModel(
   private val density: String
 ) :
   BaseViewModel<DepositePointBottomSheetState>() {
-
-  internal val eventPublisher: PublishSubject<DepositePointBottomSheetStateIntent> by lazy { PublishSubject.create<DepositePointBottomSheetStateIntent>() }
 
   override fun initState(): DepositePointBottomSheetState = DepositePointBottomSheetState()
 

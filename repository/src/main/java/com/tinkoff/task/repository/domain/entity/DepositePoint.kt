@@ -13,6 +13,7 @@ data class DepositePoint(
   var hasSeen: Boolean = false,
   var location: Location = Location(),
   var workHours: String = "",
+  var phones: String = "",
   var addressInfo: String = "",
   var fullAddress: String = "",
   var verificationInfo: String = ""
@@ -29,6 +30,7 @@ fun DepositePoint.toLocal() =
     hasSeen = hasSeen,
     location = location.toLocal(),
     workHours = workHours,
+    phones = phones,
     addressInfo = addressInfo,
     fullAddress = fullAddress,
     verificationInfo = verificationInfo

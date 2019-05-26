@@ -6,7 +6,7 @@ data class MapState(
   val success: Boolean = false,
   val loading: Boolean = false,
   val werePartnersSavedInDB: Boolean = false,
-  val depositePoints: List<ItemState.ItemDepositePoint> = emptyList(),
+  val depositePoints: List<ItemDepositePoint> = emptyList(),
   val error: Throwable? = null
 )
 

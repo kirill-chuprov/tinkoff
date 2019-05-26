@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.jakewharton.rxbinding2.view.clicks
 import com.tinkoff.task.BR
 import com.tinkoff.task.R
+import com.tinkoff.task.databinding.ItemDepositionPointBinding
 import com.tinkoff.task.ui.depositepointslist.DepositePointsAdapter.DepositionPointViewHolder
 import com.tinkoff.task.ui.depositepointslist.ItemState.ItemDepositePoint
 import com.tinkoff.task.ui.depositepointslist.ListStateIntent.GoToPointDetail
@@ -17,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 internal class DepositePointsAdapter(
-  private val eventPublisher: PublishSubject<ListStateIntent>
+  private val eventPublisher: PublishSubject<GoToPointDetail>
 ) :
   ListAdapter<ItemDepositePoint, DepositionPointViewHolder>(CATEGORY_COMPARATOR) {
 
@@ -57,13 +58,19 @@ internal class DepositePointsAdapter(
     ViewHolder(binding.root) {
 
     init {
-      binding.root.clicks()
-        .skip(300, MILLISECONDS)
-        .map {
-          val depositePoint = getItem(adapterPosition) as ItemDepositePoint
-          GoToPointDetail(depositePoint.fullAddress)
-        }
-        .subscribe(eventPublisher)
+      if (binding is ItemDepositionPointBinding) {
+        binding.root.clicks()
+          .throttleFirst(500, MILLISECONDS)
+          .map {
+            val depositePoint = getItem(adapterPosition) as ItemDepositePoint
+            GoToPointDetail(
+              depositePoint.fullAddress,
+              depositePoint.picture,
+              depositePoint.partnerName
+            )
+          }
+          .subscribe(eventPublisher)
+      }
     }
 
     fun bind(data: ItemState) {

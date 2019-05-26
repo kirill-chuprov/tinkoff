@@ -26,6 +26,7 @@
         android:value="@string/google_maps_key"/>
     <activity
         android:name=".MainActivity"
+        android:screenOrientation="portrait"
         android:theme="@style/StartTheme"
         >
       <intent-filter>

@@ -1,11 +1,14 @@
 package com.tinkoff.task.ui.depositepointslist
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.State
@@ -14,15 +17,17 @@ import com.tinkoff.task.common.BaseFragment
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.common.px
 import com.tinkoff.task.databinding.FragmentListBinding
+import com.tinkoff.task.ui.depositepointslist.ListStateIntent.GoToPointDetail
 import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObserveDepositePoints
 import com.tinkoff.task.ui.depositepointslist.ListStateIntent.ObservePartners
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : BaseFragment<FragmentListBinding>(), BaseView<ListState> {
 
   private val vmListScreen: ListViewModel by viewModel()
-  private val eventPublisher by lazy { vmListScreen.eventPublisher }
+  private val eventPublisher: PublishSubject<GoToPointDetail> by lazy { PublishSubject.create<GoToPointDetail>() }
   private val homeAdapter by lazy {
     DepositePointsAdapter(
       eventPublisher
@@ -44,6 +49,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(), BaseView<ListState> {
     .also {
       initIntents()
       initRecyclerView()
+      initClicks()
     }
 
   private fun initRecyclerView() {
@@ -67,6 +73,18 @@ class ListFragment : BaseFragment<FragmentListBinding>(), BaseView<ListState> {
       })
 
     }
+  }
+
+  @SuppressLint("CheckResult")
+  private fun initClicks() {
+    compositeDisposable?.add(eventPublisher.subscribe {
+
+      findNavController().navigate(
+        R.id.action_rootFragment_to_detailFragment, bundleOf(
+          FULL_ADDRESS to it.fullAddress
+        )
+      )
+    })
   }
 
   override fun initIntents() {

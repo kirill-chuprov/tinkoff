@@ -16,9 +16,9 @@ val mainModule = module {
 
   single<ImageLoader> { GlideImageLoader }
   single { ImageBindingAdapter(get()) }
-  viewModel { MapViewModel(get(), get()) }
+  viewModel { MapViewModel(get(), get(),get()) }
   viewModel { ListViewModel(get(), get(), get()) }
-  viewModel { DetailViewModel() }
+  viewModel { DetailViewModel(get(),get(),get()) }
   viewModel { DepositePointBottomSheetViewModel(get(), get(), get()) }
 
 }

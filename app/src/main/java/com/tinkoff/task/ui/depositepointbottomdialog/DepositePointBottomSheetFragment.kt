@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tinkoff.task.R
 import com.tinkoff.task.common.BaseView
 import com.tinkoff.task.databinding.FragmentDepositePointBottomSheetBinding
 import com.tinkoff.task.ui.depositepointbottomdialog.DepositePointBottomSheetStateIntent.GetDataForDepositePoint
+import com.tinkoff.task.ui.depositepointslist.FULL_ADDRESS
+import com.tinkoff.task.ui.depositepointslist.PARTNER_NAME
+import com.tinkoff.task.ui.depositepointslist.PICTURE
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -49,6 +53,17 @@ class DepositePointBottomSheetFragment : BottomSheetDialogFragment(),
     fullAddress = arguments?.getString("fullAddress") ?: ""
 
     initIntents()
+
+    viewBinding!!.root.setOnClickListener {
+      val bundle = bundleOf(
+        FULL_ADDRESS to fullAddress,
+        PICTURE to vmDepositePointBottomSheetScreen.stateReceived().value?.depositePoint?.picture,
+        PARTNER_NAME to vmDepositePointBottomSheetScreen.stateReceived().value?.depositePoint?.partnerName
+      )
+      findNavController().navigate(
+        R.id.action_rootFragment_to_detailFragment, bundle
+      ).also { this.dismiss() }
+    }
 
     return viewBinding!!.root
   }

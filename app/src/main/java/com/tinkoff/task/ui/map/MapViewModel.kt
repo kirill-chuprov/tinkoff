@@ -1,10 +1,12 @@
 package com.tinkoff.task.ui.map
 
 import com.tinkoff.task.common.BaseViewModel
-import com.tinkoff.task.common.startWithAndErrHandleWithIO
+import com.tinkoff.task.common.errHandleWithIO
 import com.tinkoff.task.repository.domain.entity.DepositePoint
 import com.tinkoff.task.repository.domain.interactors.GetDepositePointAroundUseCase
 import com.tinkoff.task.repository.domain.interactors.GetPartnersUseCase
+import com.tinkoff.task.repository.domain.interactors.RunCleanPointsTaskUseCase
+import com.tinkoff.task.ui.depositepointslist.ListStateChange
 import com.tinkoff.task.ui.map.MapStateChange.DepositePointsReceivedAndSaved
 import com.tinkoff.task.ui.map.MapStateChange.Error
 import com.tinkoff.task.ui.map.MapStateChange.HideError
@@ -18,13 +20,17 @@ import io.reactivex.subjects.PublishSubject
 
 class MapViewModel(
   private val getDepositePointAroundUseCase: GetDepositePointAroundUseCase,
-  private val getPartnersUseCase: GetPartnersUseCase
+  private val getPartnersUseCase: GetPartnersUseCase,
+  private val runCleanPointsTaskUseCase: RunCleanPointsTaskUseCase
 ) :
   BaseViewModel<MapState>() {
 
   internal val eventPublisher: PublishSubject<MapStateIntent> by lazy { PublishSubject.create<MapStateIntent>() }
 
   override fun initState(): MapState = MapState()
+
+  override fun vmIntents(): Observable<Any> =
+    runCleanPointsTaskUseCase.runCleanPointsTaskUseCase().toObservable()
 
   override fun viewIntents(intentStream: Observable<*>): Observable<Any> =
     Observable.merge(
@@ -37,7 +43,12 @@ class MapViewModel(
               it.radius
             )
               .map { DepositePointsReceivedAndSaved(it.map { it.toPresentation() }) }
-              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+              .errHandleWithIO {
+                Observable.just(
+                  ListStateChange.Error(it),
+                  ListStateChange.HideError
+                )
+              }
           },
         intentStream.ofType(GetPartners::class.java)
           .switchMap {
@@ -45,7 +56,12 @@ class MapViewModel(
               .toSingleDefault(Notification.createOnComplete<Any>())
               .toObservable()
               .map { PartnersWereReceivedAndSaved }
-              .startWithAndErrHandleWithIO(Loading) { Observable.just(Error(it), HideError) }
+              .errHandleWithIO {
+                Observable.just(
+                  ListStateChange.Error(it),
+                  ListStateChange.HideError
+                )
+              }
           }
 
       )

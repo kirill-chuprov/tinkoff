@@ -37,4 +37,6 @@ class DepositePointsRepositoryImpl(
     localDepositePointsDataSource.saveDepositePoints(depositePoints)
 
   override fun getDepositePoint(fullAddress: String): Single<DepositePoint>  = localDepositePointsDataSource.getDepositePoint(fullAddress)
+
+  override fun runCleanPointsTask(): Completable = localDepositePointsDataSource.runCleanPointsTask()
 }

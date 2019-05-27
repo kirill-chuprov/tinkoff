@@ -11,5 +11,5 @@
   <string name="restrictions"> Ограничения  </string>
   <string name="conditions"> Условия  </string>
   <string name="information"> Информация  </string>
-  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyADOsqVBBLwU6b1gAZfHn72pw0iC_rWj3A</string>
+  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4kH5DW8XAp_eRUw-K5C30FwAanmYv9vA</string>
 </resources>
